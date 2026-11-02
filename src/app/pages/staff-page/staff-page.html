@@ -1,0 +1,62 @@
+<section class="hero">
+  <div class="hero__text">
+    <p class="overline">THE GIU YEARBOOK / OUR MENTORS</p>
+    <h1 class="hero__title">The people who helped us grow.</h1>
+    <p class="hero__desc">
+      For every lesson, every open door, and every extra bit of encouragement. Meet the teachers and
+      staff behind our journey.
+    </p>
+  </div>
+  <p class="hero__thanks"><span>WITH GRATITUDE</span> <span>From the Class of 2028.</span></p>
+</section>
+<div class="filters">
+  <label class="field field--search">
+    <span class="visually-hidden">Search students by name</span>
+    <img src="icons/search.svg" alt="" aria-hidden="true" />
+    <input
+      type="search"
+      placeholder="Search students by name..."
+      [value]="searchText()"
+      (input)="onSearch($event)"
+    />
+  </label>
+
+  <label class="field field--select">
+    <span class="visually-hidden">Filter by department</span>
+    <select [value]="selectedDepartment()" (change)="onDepartmentChange($event)">
+      <option value="all">All departments</option>
+      <!-- @for builds one <option> per department found in the data -->
+      @for (d of departments(); track d) {
+        <option [value]="d">{{ d }}</option>
+      }
+    </select>
+    <img src="icons/chevron-down.svg" alt="" aria-hidden="true" />
+  </label>
+
+  <label class="field field--select">
+    <span class="visually-hidden">Sort staff</span>
+    <select [value]="sortBy()" (change)="onSortChange($event)">
+      <option value="featured">Featured first</option>
+      <option value="name">Name A–Z</option>
+    </select>
+    <img src="icons/chevron-down.svg" alt="" aria-hidden="true" />
+  </label>
+
+  <!-- aria-live: screen readers announce the new count after each filter. -->
+  <p class="filters__count" aria-live="polite">{{ visibleStaff().length }} staff members</p>
+</div>
+
+@if (loading()) {
+  <p class="status" role="status">Loading staff…</p>
+} @else if (errorMessage()) {
+  <p class="status status--error" role="alert">{{ errorMessage() }}</p>
+} @else if (visibleStaff().length === 0) {
+  <p class="status">No one matches your search. Try a different name or department.</p>
+} @else {
+  <section class="grid" aria-label="Teachers and staff">
+    @for (m of visibleStaff(); track m.id) {
+      <app-staff-card [staff]="m" />
+    }
+  </section>
+  <p class="tribute">You taught us more than a subject. You helped us imagine what comes next.</p>
+}
