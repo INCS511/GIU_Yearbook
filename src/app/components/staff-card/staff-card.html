@@ -1,0 +1,18 @@
+<div class="card">
+  <img
+    class="card__photo"
+    [src]="staff().photo"
+    [alt]="'Portrait of ' + staff().name"
+    loading="lazy"
+  />
+  <div class="card__body">
+    <p class="card__dept">{{ staff().department }}</p>
+    <h2 class="card__name">{{ staff().name }}</h2>
+    <p class="card__role">{{ staff().role }}</p>
+    <p class="card__bio">{{ staff().bio }}</p>
+    <div class="card__message">
+      <p class="card__quote">“{{ staff().quote }}”</p>
+      <img src="icons/quote.svg" alt="" />
+    </div>
+  </div>
+</div>
