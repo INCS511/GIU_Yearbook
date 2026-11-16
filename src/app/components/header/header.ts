@@ -8,6 +8,7 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { SavedService } from '../../services/saved.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,9 @@ export class Header {
   ];
   // ...inside the class, after logoFailed:
   protected readonly saved = inject(SavedService);
+
+  // ...inside the class, next to `saved`:
+  protected readonly auth = inject(AuthService);
 
   // STEP 3: A signal holds a value that, when it changes, updates the
   // screen automatically. Here: did the logo image fail to load?

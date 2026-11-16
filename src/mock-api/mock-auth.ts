@@ -31,7 +31,7 @@ export function registerMockAuth(app: Express): void {
     if (!valid) {
       // Deliberately a 500 for this lab (a real API would use 401 or 422).
       // No cookie is sent.
-      res.status(500).json({ message: 'Wrong username or password' });
+      res.status(401).json({ message: 'Wrong username or password' });
       return;
     }
 
