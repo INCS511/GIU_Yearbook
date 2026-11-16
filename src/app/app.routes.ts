@@ -7,9 +7,10 @@
 import { Routes } from '@angular/router';
 
 import { StudentsPage } from './pages/students-page/students-page';
-import { StaffPage } from './pages/staff-page/staff-page';
 import { PlaceholderPage } from './pages/placeholder-page/placeholder-page';
 import { LoginPage } from './pages/login-page/login-page';
+import { authGuard } from './guards/auth.guard';
+import { ProfilePage } from './pages/profile-page/profile-page';
 
 export const routes: Routes = [
   // STEP 1: The landing page. An empty path '' means "the home URL".
@@ -25,7 +26,13 @@ export const routes: Routes = [
   },
   { path: 'gallery', component: PlaceholderPage, data: { title: 'Gallery' } },
   { path: 'login', component: LoginPage, data: { title: 'Student login' } },
-  { path: 'profile', component: PlaceholderPage, data: { title: 'Student profile' } },
+  // canActivate runs the guard first: no cookie, no profile page.
+  {
+    path: 'profile',
+    component: ProfilePage,
+    data: { title: 'My profile' },
+    canActivate: [authGuard],
+  },
 
   // STEP 3: `:id` is a route PARAMETER. /students/3 and /students/7 both
   // match this route. The page can read the number later.
